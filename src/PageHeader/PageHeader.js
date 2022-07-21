@@ -1,24 +1,29 @@
 import Menu from './Menu';
 import './PageHeader.css'
+import { Link } from 'react-router-dom';
 
 const PageHeader = (props) => {
 
-    return(
+    return (
         <div className="pageHeader">
-         
-        <img src="allstatelogo.png"/>
 
-        <br/>
+            <img src="allstatelogo.png" />
 
-        <h>Welcome to the Allstate Small Claims Site</h>
+            <br />
 
-        <br/>
-        
-        <ul>
-        <li style={{cursor: "pointer"}}>Search Existing Claims</li>
-        <li style={{cursor: "pointer"}}>New Claim</li>
-       
-        </ul>
+            <h>Welcome to the Allstate Small Claims Site</h>
+
+            <br />
+
+            <ul>
+                <il>
+                    <Link to="/searchClaims">Search Existing Claims</Link>
+                </il>
+                <il>
+                    <Link to="/newClaim">Report a New Claim</Link>
+                </il>
+
+            </ul>
 
         </div>
     )

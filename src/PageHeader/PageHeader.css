@@ -1,0 +1,23 @@
+.pageHeader {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    border-style:solid;
+    padding: 20px;
+}
+
+.pageHeader h1 {
+    text-align: center;
+}
+
+
+
+
+.pageHeader ul{
+    display:inline;
+    padding: 20px;
+    font-size: 1.5em;
+    list-style: none;
+    
+}

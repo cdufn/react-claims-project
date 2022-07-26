@@ -1,15 +1,16 @@
 import './Footer.css'
 
-const footer = (props) =>{
+const Footer = (props) => {
 
 
- return(
-     <div className="footer">
+    return (
+        <div className="footer">
 
-        <a href="mailto:AllstateClaims@allstate.com">AllstateClaims@allstate.com</a>
+            <p>Email for Help</p>
+            <a href="mailto:AllstateClaims@allstate.com">AllstateClaims@allstate.com</a>
 
-     </div>
- )
+        </div>
+    )
 
 }
 

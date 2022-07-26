@@ -1,0 +1,22 @@
+.nav {
+    display:inline;
+    padding: 20px;
+    font-size: 1.5em;
+    list-style: none;
+    float: none;
+}
+
+.nav ul{
+    display:inline;
+    padding: 20px;
+    font-size: 1.5em;
+    list-style: none;
+    
+}
+
+.nav il {
+    display:inline;
+    padding: 20px;
+    font-size: 1.5em;
+    list-style: none;
+}

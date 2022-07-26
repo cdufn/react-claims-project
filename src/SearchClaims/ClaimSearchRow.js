@@ -1,4 +1,4 @@
-const ClaimsRow = (props) => {
+const ClaimSearchRow = (props) => {
 
     return <tr id={props.id} >
         <td>{props.id}</td>
@@ -10,4 +10,4 @@ const ClaimsRow = (props) => {
         <th>{props.claimStatus}</th></tr>
 }
 
-export default ClaimsRow;
+export default ClaimSearchRow;

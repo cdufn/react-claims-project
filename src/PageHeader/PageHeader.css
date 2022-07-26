@@ -1,27 +1,23 @@
 .pageHeader {
-    text-align: center;
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    min-height: 80px;
+    width: 100%;
+    padding: 10px;
     background: #fff;
+    font-family: 'Poppins', sans-serif;
+    border-style: none;
 }
 
-.pageHeader h1 {
-    text-align: center;
+.pageHeader img {
+    float:none ;
+}
+
+.pageHeader div {
+    display: block;
 }
 
 
-.pageHeader ul{
-    display:inline;
-    padding: 20px;
-    font-size: 1.5em;
-    list-style: none;
-    
-}
 
-.pageHeader il {
-    display:inline;
-    padding: 20px;
-    font-size: 1.5em;
-    list-style: none;
-}
+
+
+
+

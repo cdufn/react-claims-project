@@ -1,3 +1,10 @@
+import { Fragment, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
+import ClaimsRow from './ClaimsRow';
+import './Claims.css';
+
 const   Claims = () => {
 
     const allClaimsStatus = claims.map( claim => claim.claimStatus);
@@ -53,7 +60,7 @@ const   Claims = () => {
 
         <table id="claimsTable" style= {{background: "#ccc"}} className="claimsTable">
             <thead>
-            <tr><th>Id</th><th>Claims ID Id</th><th>Policy Number</th><th>First Name</th><th>Surname</th><th>Type of Claim</th><th>Claim Status</th></tr>
+            <tr><th>Id</th><th>Claims ID</th><th>Policy Number</th><th>First Name</th><th>Surname</th><th>Type of Claim</th><th>Claim Status</th></tr>
             </thead>
             <tbody>
             {displayClaims}

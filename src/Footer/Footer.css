@@ -1,8 +1,10 @@
 .footer {
-    width: 800px;
+    float: inline-end;
     margin-left: auto;
     margin-right: auto;
     background: #fff;
-    border-style:solid;
-    padding: 20px;
+}
+
+.footer p {
+    text-align: left;
 }

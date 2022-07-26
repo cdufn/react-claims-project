@@ -16,3 +16,15 @@
 .searchBox label, input, button {
     margin: 10px;
 }
+
+.claimsTable {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid #999;
+}
+.claimsTable td, .claimsTable th {
+    padding: 3px;
+    border: 1px solid #999;
+}

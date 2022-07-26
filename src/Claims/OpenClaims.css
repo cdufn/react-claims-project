@@ -1,0 +1,31 @@
+.openClaimTable{
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid #999;
+}
+
+.openClaimTable td, .openClaimTable th{
+    padding: 3px;
+    border: 1px solid #999;
+}
+
+.openClaimTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: bisque;
+}
+
+.openClaimTable tr:nth-child(even){
+    background-color: #f1f1f1;
+}
+
+.openClaimTable tr:nth-child(odd){
+    background-color: #f9f9f9;
+}
+  
+.openClaimTable tr:hover {
+    background-color: #ddd;
+}

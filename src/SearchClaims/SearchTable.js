@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react"
 import ClaimData from '../Data/ClaimData.json'
 import ClaimSearchRow from './ClaimSearchRow';
+import ClaimsRow from '../Claims/ClaimsRow';
 
 const SearchTable = (props) =>{
 
@@ -12,7 +13,7 @@ const SearchTable = (props) =>{
     const displayClaimsTable = claims.filter(claims => props.searchTerm === claims.lastName.toLowerCase() ||props.searchTerm === claims.policyNumber)
         .map(claims => 
             (props.searchTerm === claims.lastName.toLowerCase() ||claims.policyNumber === props.searchTerm) &&
-            <ClaimSearchRow key={claims.id} id={claims.id} claimId ={claims.claimId} policyNumber={claims.policyNumber} 
+            <ClaimsRow key={claims.id} id={claims.id} claimId ={claims.claimId} policyNumber={claims.policyNumber} 
             firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} />
           );
 

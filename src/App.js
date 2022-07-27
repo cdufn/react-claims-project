@@ -6,6 +6,7 @@ import Menu from './Menu/Menu';
 import SearchClaims from './SearchClaims/SearchClaims';
 import OpenClaims from './Claims/OpenClaims';
 import HomePage from './HomePage/HomePage';
+import NewClaim from './NewClaim/NewClaim';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/searchClaims" element = {<SearchClaims />} />
           <Route path="/searchClaims/:policyNumber" element = {<SearchClaims />} />
           <Route path="/searchClaims" element = {<SearchClaims />} />
+          <Route path="/newClaims" element = {<NewClaim />} />
         </Routes>
 
       </div>

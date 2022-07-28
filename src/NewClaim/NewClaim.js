@@ -7,162 +7,145 @@ import ClaimData from '../Data/ClaimData.json';
 const NewClaim = () => {
 
     // fetch example reads the json file and loads the data into usestate
-    const [data,setData]=useState([]);
+    const [data, setData] = useState([]);
 
-    const fetchDataExample=()=>{
+    const fetchDataExample = () => {
         fetch('./data.json'
-        ,{
-          headers : { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-           }
-        }
+            , {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }
         )
-          .then(function(response){
-            console.log("response " + response)
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log("MyJson " + myJson);
-            setData(myJson);
-          });
-      }
-      useEffect(()=>{
+            .then(function (response) {
+                console.log("response " + response)
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log("MyJson " + myJson);
+                setData(myJson);
+            });
+    }
+    useEffect(() => {
         fetchDataExample()
-      },[])
-
-
-
-    const emptyTransaction = { claimId: "", policyNumber: "" , firstName: "",
-        lastName: "", claimType: "", claimStatus: ""}
-
-    const newTransactionReducer = (state, data) => {
-        return { ...state, [data.field]: data.value }
-    }
-
-    const [newTransaction, dispatch] = useReducer(newTransactionReducer, emptyTransaction);
-
-    const handleChange = (event) => {
-        const dataToChange = { field: event.target.id, value: event.target.value };
-        dispatch(dataToChange);
-
-        console.log("Data to Change " + dataToChange);
-    }
-    const { claimId, policyNumber, firstName, lastName, claimType, claimStatus } = newTransaction;
-
-    console.log("new transaction " + newTransaction);
+    }, [])
 
     const [message, setMessage] = useState("")
     const [saving, setSaving] = useState(false);
 
-    const submitForm = (e) => {
-        e.preventDefault();
-        setSaving(true);
-        setMessage("please wait - saving")
-        const response = addNewClaim(newTransaction);
-        response.then ( result => {
-            if (result.status === 200) {
-                setMessage("Payment added with id " + result.data.id)
+
+
+    // from the below store the input values into an array
+    const initialNewClaimState = { claimId: "", policyNumber: "", firstName: "", lastName: "", claimType: "", claimStatus: "" };
+
+    // new inputs pushed onto array
+    const claimReducer = (state, newData) => {
+        return { ...state, [newData.field]: newData.value }
+    }
+
+    // returns an array which hold current state and dispatch function which you pass an action
+    const [newClaim, dispatch] = useReducer(claimReducer, initialNewClaimState);
+
+    console.log("new Claim  " + JSON.stringify(newClaim));
+
+    // on input update state
+    const handleNewChange = (event) => {
+        dispatch({ field: event.target.id, value: event.target.value });
+        console.log("what is the value " + event.target.value);
+    }
+
+    const { claimId, policyNumber, firstName, lastName, claimType, claimStatus } = newClaim;
+
+    const submitData = (event) => {
+        event.preventDefault();
+        setMessage("saving");
+        console.log(newClaim);
+        const response = addNewClaim(newClaim);
+        response.then(
+            result => {
+                if (result.status === 200) {
+                    setMessage("new transaction added");
+                }
+                else {
+                    setMessage("something went wrong - error code was " + result.status);
+                }
             }
-            else {
-                setMessage ("something went wrong ", result.statusText)
-            }
-            setSaving(false);
-            console.log("response from server " + response);
-        })
-            .catch (error => {
-                setMessage("something went wrong ", error)
-                setSaving(false);
-            })
-            
-        }
+        )
+            .catch(error => console.log("something went wrong ", error));
+    }
 
-        // from the below store the input values into an array
+    // toggle property inputs
+    const [showProp, setShowProp] = useState(false);
 
-        const emptyExampleTransaction = { claimId: "", policyNumber: "" , firstName: "",
-        lastName: ""};
+    const toggleProp = () =>{
+        setShowProp(prev => !prev)
+    }
 
-        const [newData, setNewData] = useState({claimId: "", firstName:"", lastName: ""});
+    // toggle pet inputs 
+    const [showPet, setShowPet] = useState(false);
 
-        const [addClaim, setClaim] = useState([]);
-        const handleNewChange = (event) => {
+    const togglePet = () =>{
+        setShowPet(prev => !prev)
+    }
 
-            const {input, value} = event.target
-            setNewData (prevState => {
-            return {
-                ...prevState, [input]: value
-            } 
-        })
-        console.log("New Data " + value);
-        }
-       
+    // toggle auto
+    const [showAuto, setShowAuto] = useState(false);
 
-        const submitData = (event) => {
-            event.preventDefault();
-            setClaim((prevClaim) =>[...prevClaim, newData]);
-        }
+    const toggleAuto = () =>{
+        setShowAuto(prev => !prev)
+    }
 
-        const newClaim = addClaim.map((c) => <p>{c.claimId} {c.firstName} {c.lastName}</p>);
+    // toggle info
+    const [showInfo, setShowInfo] = useState(false);
 
-        console.log("final result " + JSON.stringify(newClaim));
-
-    return(
-
-     <form className="simpleform" onSubmit={submitData} >
-                <label htmlFor="claimId">Claim ID</label>
-                <input type="text" id="claimId" placeholder="Claim Id" onChange={handleNewChange} value={newData.claimIdclaimId}/>
-                <br />
-                <label htmlFor="customerFirstName">First Name</label>
-                <input type="text" id="customerFirstName" placeholder="First Name" onChange={handleNewChange} value={newData.firstName}/>
-                <br />
-                <label htmlFor="customerLastName">Last name</label>
-                <input type="text" id="customerLastName" placeholder="Last Name" onChange={handleNewChange} value={newData.lastName}/>
-                <br />
-                <button type="submit">Save</button>
-                </form>
-    )
-
-  /*   return (
+    const toggleInfo = () =>{
+        setShowInfo(prev => !prev)
+    }
+        
+    return (
         <div className="newClaim">
-            <form class="newClaimForm" onSubmit={submitForm} >
+            <form class="newClaimForm" onSubmit={submitData} >
 
                 <label htmlFor="claimId">Claim ID</label>
-                <input type="text" id="claimId" placeholder="Claim Id" onChange={handleChange} />
+                <input type="text" id="claimId" placeholder="Claim Id" onChange={handleNewChange} />
                 <br />
-                <label htmlFor="customerFirstName">First Name</label>
-                <input type="text" id="customerFirstName" placeholder="First Name" />
+                <label htmlFor="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="First Name" onChange={handleNewChange} />
                 <br />
                 <label htmlFor="customerLastName">Last name</label>
-                <input type="text" id="customerLastName" placeholder="Last Name" />
+                <input type="text" id="lastName" placeholder="Last Name" onChange={handleNewChange} />
                 <br />
                 <label htmlFor="customerPhoneNumber">Phone Number</label>
-                <input type="tel" name="customerPhoneNumber" id="customerPhoneNumber" />
+                <input type="tel" name="phoneNum" id="customerPhoneNumber" onChange={handleNewChange} />
                 <br />
                 <label htmlFor="claimdate">Claim Date</label>
-                <input type="date" id="claimDate" />
+                <input type="date" id="claimDate" onChange={handleNewChange} />
                 <br />
                 <label htmlFor="costOfClaim">Estimate Cost of Claim</label>
-                <input type="number" id="costOfClaim" />
+                <input type="number" id="cost" onChange={handleNewChange} />
                 <br />
                 <label htmlFor="claimReason">Reason for Claim</label>
-                <input type="text" id="claimReason" />
+                <input type="text" id="reason" onChange={handleNewChange} />
                 <br />
                 <label htmlFor="claimDescription">Description of Incident</label>
-                <textarea id="claimDescription" rows="4" cols="50"></textarea>
-
+                <textarea id="description" rows="4" cols="50" onChange={handleNewChange}></textarea>
 
                 <h2>Type of Insurance Claim</h2>
 
-                <input type="checkbox" onclick="togglehouseholdExtended" name="property" id="property" />
+                <input type="checkbox" onClick={toggleProp} name="property" id="property" />
                 <label class="checkbox-label" for="property">Property</label>
 
-                <input type="checkbox" name="motor" id="motor" />
+                <input type="checkbox" onClick={toggleAuto} name="motor" id="motor" />
                 <label class="checkbox-label" for="motor">Motor</label>
 
-                <input type="checkbox" name="pet" id="pet" />
+                <input type="checkbox" onClick={togglePet} name="pet" id="pet" />
                 <label class="checkbox-label" for="pet">Pet</label>
 
-                <div id="householdExtended">
+                <input type="checkbox" onClick={toggleInfo} name="info" id="info" />
+                <label class="checkbox-label" for="pet">Other Information</label>
+                
+                {showProp && <div id="householdExtended">
                     <label htmlFor="address">Address of Property</label>
 
                     <br />
@@ -171,50 +154,50 @@ const NewClaim = () => {
                     <input type="text" name="city" id="city" />
 
                     <label htmlFor="street">Street</label>
-                    <input type="text" name="street" id="street"  />
+                    <input type="text" name="street" id="street" />
 
                     <label htmlFor="zip">Zip Code</label>
-                    <input type="text" name="zip" id="zip"  />
+                    <input type="text" name="zip" id="zip" />
 
-                </div>
+                </div> }
 
-                <div id="motorExtended">
+                {showAuto && <div id="motorExtended">
 
                     <label htmlFor="make">Make of Vehicle</label>
-                    <input type="text" name="make" id="make"  />
+                    <input type="text" name="make" id="make" />
 
                     <label htmlFor="model">Model of Vehicle</label>
-                    <input type="text" name="model" id="model"  />
+                    <input type="text" name="model" id="model" />
 
                     <label htmlFor="year">Year of Manufacture</label>
-                    <input type="text" name="year" id="year"  />
+                    <input type="text" name="year" id="year" />
 
-                </div>
+                </div> }
 
-                <div id="petExtended">
+                {showPet && <div id="petExtended">
 
                     <label htmlFor="type">Type of Animal</label>
-                    <input type="text" name="type" id="type"  />
+                    <input type="text" name="type" id="type" />
 
                     <label htmlFor="breed">Breed</label>
-                    <input type="text" name="breed" id="breed"  />
-                </div>
+                    <input type="text" name="breed" id="breed" />
+                </div> }
 
                 <br />
 
-                <div id="additionalInfo">
+                {showInfo && <div id="additionalInfo">
 
                     <label htmlFor="type">Date of related incident</label>
-                    <input type="date" name="additionalDate" id="additionalDate"  />
+                    <input type="date" name="additionalDate" id="additionalDate" />
                     <br />
                     <label htmlFor="additionalInfoText">Description of Incident</label>
                     <textarea id="additionalInfoText" name="additionalInfoText" rows="4" cols="50"></textarea>
-                </div>
-                <br/>
+                </div>}
+                <br />
                 <button disabled={saving} type="submit">Save</button>
             </form>
         </div>
-    ) */
+    )
 };
 
 export default NewClaim;

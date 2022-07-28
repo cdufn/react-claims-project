@@ -15,7 +15,7 @@ const fetchDataExample=()=>{
       })
       .then(function(myJson) {
         console.log("MyJson " + myJson);
-      });
+      });a
   }
   useEffect(()=>{
     getData()

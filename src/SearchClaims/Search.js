@@ -22,7 +22,7 @@ const Search = (props) => {
         setSearchTerm(value);
         setSearchSurname(true);
     }
-
+  
     const doSearch = (event) => {
         event.preventDefault();
         props.setSearchTerm(searchTerm.trim());
@@ -35,7 +35,6 @@ const Search = (props) => {
               navigate("/searchClaims/" + searchTerm.trim());
           }
       }
-
 
     return <div className="searchBox">
             <p>To search for exisiting Allstate Claims, please input the below required information</p>

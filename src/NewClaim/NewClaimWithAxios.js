@@ -7,8 +7,6 @@ const AddTransaction = () => {
     const initialNewTransactionState = {claimId : "", policyNumber : "", firstName : "0",
         lastName : "", claimType : "", claimStatus : ""};
 
-        const { claimId, policyNumber, firstName, lastName, claimType, claimStatus } = newClaim;    
-
     const [message, setMessage] = useState("");
 
     const formReducer = (state, data) => {

@@ -1,5 +1,12 @@
 const ClaimSearchRow = (props) => {
 
+    const updateStatus = () => {
+        //props.song.votes
+        
+
+        props.updateFunction();
+    }
+
     return <tr id={props.id} >
         <td>{props.id}</td>
         <td>{props.claimId}</td>
@@ -7,7 +14,9 @@ const ClaimSearchRow = (props) => {
         <td>{props.firstName}</td>
         <td>{props.lastName}</td>
         <td>{props.claimType}</td>
-        <th>{props.claimStatus}</th></tr>
+        <td>{props.claimStatus}</td>
+        <td><button onClick={updateStatus}>Update</button>
+        </td></tr>
 }
 
 export default ClaimSearchRow;

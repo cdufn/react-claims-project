@@ -2,35 +2,153 @@ import { Fragment, useState } from "react"
 import ClaimData from '../Data/ClaimData.json'
 import ClaimSearchRow from './ClaimSearchRow';
 import ClaimsRow from '../Claims/ClaimsRow';
+import { getAllClaims } from '../Data/Data';
+import ReadOnlyClaimRow from '../SearchClaims/ReadOnlyClaimRow';
+import ChangeClaimRow from '../SearchClaims/ChangeClaimRow';
 
-const SearchTable = (props) =>{
+const SearchTable = (props) => {
 
     // get and display all claims
-    const [claims, setClaims] = useState(ClaimData);
-    //const displayAllClaims = claims.map((it,idx) => <ClaimSearchRow key={idx} id={it.id} policy_number={it.policy_number}
-        //surname={it.surname} status={it.status} />);
+    const [claims, setClaims] = useState(getAllClaims);
 
-    const displayClaimsTable = claims.filter(claims => props.searchTerm === claims.lastName.toLowerCase() ||props.searchTerm === claims.policyNumber)
-        .map(claims => 
-            (props.searchTerm === claims.lastName.toLowerCase() ||claims.policyNumber === props.searchTerm) &&
-            <ClaimsRow key={claims.id} id={claims.id} claimId ={claims.claimId} policyNumber={claims.policyNumber} 
-            firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} />
-          );
+    // useState to display read only or edit
+    const [editableClaimId, setEditableClaimId] = useState(null);
 
-     
-     console.log("Surname " + claims.lastName);
+    const [editClaimData, setEditClaimData] = useState([]);
+
+    // display the results
+    const displayClaimsTable = claims.filter(claims => props.searchTerm === claims.lastName.toLowerCase() || props.searchTerm === claims.policyNumber)
+        .map((claims, index) =>
+            (props.searchTerm === claims.lastName.toLowerCase() || claims.policyNumber === props.searchTerm) &&
+            <ClaimSearchRow key={claims.iD} iD={claims.iD} claimId={claims.claimId} policyNumber={claims.policyNumber}
+                firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} updateFunction={() => updateStatus(index) }/> 
+        );
+
+    // try and filter claims seperately and save to state
+    const filteredClaims = claims.filter(claims => props.searchTerm === claims.lastName.toLowerCase() || props.searchTerm === claims.policyNumber);
+    
+    console.log("filtered claims.........." + JSON.stringify(filteredClaims));
+    
+    // Now we have the filtered objects and also the array positon for below
+        const updateStatus = (arrayPosition) => {
+            const claimToUpdate = filteredClaims[arrayPosition];
+
+            const updatedClaim = {...claimToUpdate};
             
+            if (updatedClaim.claimStatus == "Closed"){
+                updatedClaim.claimStatus = "Open";
+            } else{
+                updatedClaim.claimStatus = "Closed";
+            }
+       
+            console.log("updated Song    "  + JSON.stringify(updatedClaim));
+            //push saved data onto new state
+            console.log("claim status  " + updatedClaim.claimStatus);
+            let tempClaims = [...filteredClaims];
+            tempClaims[arrayPosition] = updatedClaim;
+            setEditClaimData(tempClaims);
+
+            console.log("new claim data at state   " + JSON.stringify(editClaimData));
+
+            // now map editClaimData to the front end like below
+/* 
+            const displaySongs = songs.map ( (it,index) =>
+            <Song key={index} song={it} voteFunction={() => voteForSong(index) } />   ) */
+    
+      
+        }
+
+        //edit claim info
+
+          // handle edit button click and set id for claim being edited
+    const handleEditClaim = (event, claims) => {
+        event.preventDefault();
+        setEditableClaimId(claims.iD);
+
+        // update data with changes
+        const formValues = {
+            iD: claims.iD,
+            claimId: claims.Id,
+            policyNumber: claims.policyNumber,
+            firstName: claims.fieldName,
+            lastName: claims.lastName,
+            claimType: claims.claimType,
+            claimStatus: claims.claimStatus,
+        }
+        
+        setEditClaimData([editClaimData, formValues]);
+    
+    }
+    //34:40
+
+    const handleClaimChange = (event) => {
+        event.preventDefault();
+
+        const fieldName = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
+
+        const newClaimData = { ...editClaimData };
+        newClaimData[fieldName] = fieldValue;
+
+        setEditClaimData(newClaimData);
+    
+    }
+
+    const handleEditClaimSubmit = (event) => {
+        event.preventDefault();
+
+        setClaims(
+            claims.map(item => 
+                item.iD === editableClaimId 
+                ? {...item, claimStatus : editClaimData.claimStatus}
+                : item 
+        ))
+
+        setEditableClaimId (null);
+    }
+
+
+    // old code
     return <Fragment>
         <table id="displaySearchTable" className="displaySearchTable">
+            <thead>
+                <tr><th>Id</th><th>Claims ID</th><th>Policy Number</th><th>First Name</th><th>Surname</th><th>Type of Claim</th><th>Claim Status</th><th>Update Status</th></tr>
+            </thead>
+            <tbody>
+                {displayClaimsTable}
+
+
+            </tbody>
+        </table>
+        <ul>
+
+
+
+        </ul>
+    </Fragment> 
+
+    // new code
+
+ /*    return <Fragment>
+    <form onSubmit={handleEditClaimSubmit}>
+    <table id="searchClaimTable" className="searchClaimTable">
         <thead>
-        <tr><th>Id</th><th>Claims ID</th><th>Policy Number</th><th>First Name</th><th>Surname</th><th>Type of Claim</th><th>Claim Status</th></tr>
+        <tr><th>Id</th><th>Claims ID</th><th>Policy Number</th><th>First Name</th><th>Surname</th><th>Type of Claim</th><th>Claim Status</th><th>Update Status</th></tr>
         </thead>
         <tbody>
-        {displayClaimsTable}
-    
+            {displayClaimsTable.map((claims, idx) => (
+                <Fragment>
+                    { editableClaimId === claims.props.iD ? 
+                    <ChangeClaimRow claim={claims.props} editClaimData={editClaimData} handleClaimChange={handleClaimChange}/> : 
+                    <ReadOnlyClaimRow claim={claims.props} handleEditClaim={handleEditClaim}/>}
+                     
+                </Fragment>
+            ))}
         </tbody>
-        </table>
-    </Fragment>
+
+    </table>
+    </form>
+</Fragment> */
 }
 
 export default SearchTable;

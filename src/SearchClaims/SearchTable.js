@@ -27,8 +27,6 @@ const SearchTable = (props) => {
     // try and filter claims seperately and save to state
     const filteredClaims = claims.filter(claims => props.searchTerm === claims.lastName.toLowerCase() || props.searchTerm === claims.policyNumber);
     
-    console.log("filtered claims.........." + JSON.stringify(filteredClaims));
-    
     // Now we have the filtered objects and also the array positon for below
         const updateStatus = (arrayPosition) => {
             const claimToUpdate = filteredClaims[arrayPosition];
@@ -40,25 +38,25 @@ const SearchTable = (props) => {
             } else{
                 updatedClaim.claimStatus = "Closed";
             }
-       
-            console.log("updated Song    "  + JSON.stringify(updatedClaim));
-            //push saved data onto new state
-            console.log("claim status  " + updatedClaim.claimStatus);
+
             let tempClaims = [...filteredClaims];
             tempClaims[arrayPosition] = updatedClaim;
-            setEditClaimData(tempClaims);
+            setClaims(tempClaims);
 
-            console.log("new claim data at state   " + JSON.stringify(editClaimData));
-
-            // now map editClaimData to the front end like below
 /* 
             const displaySongs = songs.map ( (it,index) =>
             <Song key={index} song={it} voteFunction={() => voteForSong(index) } />   ) */
-    
-      
+            
         }
 
-        //edit claim info
+        //map and display claims for editClaimData
+        const displayFilteredClaims = editClaimData.map((claim, index) =>
+        (props.searchTerm === editClaimData.lastName.toLowerCase() || editClaimData.policyNumber === props.searchTerm) &&
+        <ClaimSearchRow key={claim.iD} iD={claim.iD} claimId={claim.claimId} policyNumber={claim.policyNumber}
+                firstName={claim.firstName} lastName={claim.lastName} claimType={claim.claimType} claimStatus={claim.claimStatus} updateFunction={() => updateStatus(index) }/> 
+        );
+
+        console.log("filtered and mapped data.........." + editClaimData);
 
           // handle edit button click and set id for claim being edited
     const handleEditClaim = (event, claims) => {

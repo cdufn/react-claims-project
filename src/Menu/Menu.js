@@ -10,7 +10,7 @@ const Menu = (props) => {
             <Link to="/newClaims">Report a New Claim</Link>
         </il>
         <il>
-            <Link to="/openClaims">Display All Claims</Link>
+            <Link to="/openClaims">Display New Claims</Link>
         </il>
     </ul>
 }

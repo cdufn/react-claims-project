@@ -131,6 +131,8 @@ const NewClaim = () => {
                 <label htmlFor="claimDescription">Description of Incident</label>
                 <textarea id="description" rows="4" cols="50" onChange={handleNewChange}></textarea>
 
+                <input type="hidden" id="claimStatus" value="New"/>
+
                 <h2>Type of Insurance Claim</h2>
 
                 <input type="checkbox" onClick={toggleProp} name="property" id="property" />

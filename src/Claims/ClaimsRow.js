@@ -1,18 +1,14 @@
-import { useState } from "react";
-import ClaimData from '../Data/ClaimData.json';
+import { Fragment, useState } from "react"
 
-const ClaimsRow = (props, {handleEditClaim}) => {
+const ClaimsRow = (props) => {
 
-    const [claim, setClaim] = useState(props);
+    const [valid, setValid] = useState(false);
 
-    // when clicked take the array, change the value of claimstats and display
-    const voteForSong = () => {
-        //props.song.votes
-        console.log("...........prop " + JSON.stringify(props));
+    const updateStatus = () =>{
 
-        props.voteFunction();
+        props.updateFunction();
     }
-
+     
     return <tr id={props.iD} >
         <td>{props.iD}</td>
         <td>{props.claimId}</td>
@@ -21,8 +17,15 @@ const ClaimsRow = (props, {handleEditClaim}) => {
         <td>{props.lastName}</td>
         <td>{props.claimType}</td>
         <td>{props.claimStatus}</td>
-        <td>
-            <button type="button" onClick={(event)=> props.handleEditClaim(event, props.claim)}>Update</button>
+        <td><input type="number" placeholder="Enter claim amount..." name="claimAmount" onChange={props.handleClaimChange}></input></td>
+        <td>    
+        <select id="newStatus" name="newStatus" defaultValue="Select" onChange={props.handleClaimChange}>
+            <option value="Select">Please Select</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Routed">Route to Main System</option>
+        </select>
+        <button onClick={updateStatus}>Update</button>
         </td></tr>
 }
 

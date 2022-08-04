@@ -41,22 +41,9 @@ const SearchTable = (props) => {
 
             let tempClaims = [...filteredClaims];
             tempClaims[arrayPosition] = updatedClaim;
-            setClaims(tempClaims);
-
-/* 
-            const displaySongs = songs.map ( (it,index) =>
-            <Song key={index} song={it} voteFunction={() => voteForSong(index) } />   ) */
-            
+            setClaims(tempClaims);        
         }
-
-        //map and display claims for editClaimData
-        const displayFilteredClaims = editClaimData.map((claim, index) =>
-        (props.searchTerm === editClaimData.lastName.toLowerCase() || editClaimData.policyNumber === props.searchTerm) &&
-        <ClaimSearchRow key={claim.iD} iD={claim.iD} claimId={claim.claimId} policyNumber={claim.policyNumber}
-                firstName={claim.firstName} lastName={claim.lastName} claimType={claim.claimType} claimStatus={claim.claimStatus} updateFunction={() => updateStatus(index) }/> 
-        );
-
-        console.log("filtered and mapped data.........." + editClaimData);
+    
 
           // handle edit button click and set id for claim being edited
     const handleEditClaim = (event, claims) => {
@@ -124,29 +111,6 @@ const SearchTable = (props) => {
 
         </ul>
     </Fragment> 
-
-    // new code
-
- /*    return <Fragment>
-    <form onSubmit={handleEditClaimSubmit}>
-    <table id="searchClaimTable" className="searchClaimTable">
-        <thead>
-        <tr><th>Id</th><th>Claims ID</th><th>Policy Number</th><th>First Name</th><th>Surname</th><th>Type of Claim</th><th>Claim Status</th><th>Update Status</th></tr>
-        </thead>
-        <tbody>
-            {displayClaimsTable.map((claims, idx) => (
-                <Fragment>
-                    { editableClaimId === claims.props.iD ? 
-                    <ChangeClaimRow claim={claims.props} editClaimData={editClaimData} handleClaimChange={handleClaimChange}/> : 
-                    <ReadOnlyClaimRow claim={claims.props} handleEditClaim={handleEditClaim}/>}
-                     
-                </Fragment>
-            ))}
-        </tbody>
-
-    </table>
-    </form>
-</Fragment> */
 }
 
 export default SearchTable;

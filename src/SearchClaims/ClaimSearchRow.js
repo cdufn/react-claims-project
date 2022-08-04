@@ -1,8 +1,6 @@
 const ClaimSearchRow = (props) => {
 
     const updateStatus = () => {
-        //props.song.votes
-        
 
         props.updateFunction();
     }

@@ -6,7 +6,8 @@
           "firstName": "John",
           "lastName": "Doh",
           "claimType": "Property",
-          "claimStatus": "Open"
+          "claimStatus": "Open",
+          "claimAmount": ""
     },
     {
           "iD": 2,
@@ -15,7 +16,8 @@
           "firstName": "James",
           "lastName": "Storey",
           "claimType": "Auto",
-          "claimStatus": "Open"
+          "claimStatus": "Open",
+          "claimAmount": ""
     },
     {
           "iD": 3,
@@ -24,7 +26,8 @@
           "firstName": "Paul",
           "lastName": "Jones",
           "claimType": "Pet",
-          "claimStatus": "Closed"
+          "claimStatus": "Closed",
+          "claimAmount": ""
     },
     {
         "iD": 4,
@@ -33,6 +36,27 @@
         "firstName": "John",
         "lastName": "Jones",
         "claimType": "Property",
-        "claimStatus": "Closed"
-  }
+        "claimStatus": "Closed",
+        "claimAmount": ""
+  },
+  {
+      "iD": 5,
+      "claimId": 55,
+      "policyNumber": "987563258",
+      "firstName": "Bob",
+      "lastName": "Marley",
+      "claimType": "Auto",
+      "claimStatus": "New",
+      "claimAmount": ""
+},
+{
+      "iD": 6,
+      "claimId": 66,
+      "policyNumber": "987563259",
+      "firstName": "Bob",
+      "lastName": "Moore",
+      "claimType": "Property",
+      "claimStatus": "New",
+      "claimAmount": ""
+}
 ]

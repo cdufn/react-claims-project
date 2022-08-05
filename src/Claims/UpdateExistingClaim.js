@@ -1,80 +1,64 @@
-// use the below as an example
-/* import Song from './Song';
-import {useState} from "react";
+import "./OpenClaims.css";
+import { Fragment, useState } from "react";
+import ClaimsRow from "./ClaimsRow";
+import ClaimData from '../Data/ClaimData.json';
 
-const SongList = () => {
+const UpdateExistingClaim = () => {
+    // get all claims
+    const [claims, setClaims] = useState(ClaimData);
 
-    const initialSongs = [
-        {title : 'Last thing on my mind', artist: 'steps', votes : 0},
-        {title : 'If you\'re over me', artist: 'Years and years', votes : 0},
-        {title : 'Top of the world', artist: 'Carpenters', votes: 0},
-        {title: 'Sometimes', artist: 'Erasure', votes : 0}
-    ];
+    const [editClaimData, setEditClaimData] = useState(null);
 
-    let [showAll, setShowAll] = useState(true);
-    let [songs, setSongs] = useState(initialSongs);
+    // save change in status 
+    const [newStatus, setNewStatus] = useState("");
 
-    const addVote = (artist) => {
-        let newSongs = songs.map( it => {
-            if (it.artist === artist) {
-                return {...it, votes: it.votes + 1};
-            }
-            else {
-                return it;
-            }
-        });
-        setSongs(newSongs);
+    // Get and Store new Status
+    const handleClaimChange = (event) => {
+
+        const value = event.target.value;
+        setNewStatus(value);   
+
+        console.log("are we here.....");
+        
     }
 
-    // Version 1 - traditional syntax
-    // const displaySongs = [];
-    //
-    // for (const [index, value] of songs.entries()) {
-    //     displaySongs.push(<Song key={index} song={value} recordVote={addVote} />)
-    // }
+     // filtered claims to update
+     const filteredClaims = claims.filter(claims => claims.claimStatus === "New");
+ 
+    const updateStatus = (arrayPosition) => {
+        const claimToUpdate = filteredClaims[arrayPosition];
+    
+        const updatedClaim = {...claimToUpdate};
 
-    //Version 1 - functional programming syntax
-    // const displaySongs = songs.map ( (song, index) => {
-    //     return (<Song key={index} song={song} recordVote={addVote} />);
-    // });
-
-
-    let [visible, setVisible] = useState(false);
-
-
-
-    const toggleVisibility = () => {
-        setVisible(!visible);
+        if(newStatus != "Please Select"){
+            updatedClaim.claimStatus = newStatus;
+        }
+    
+        let tempClaims = [...filteredClaims];
+        tempClaims[arrayPosition] = updatedClaim;
+        setEditClaimData(tempClaims);
+        
     }
 
-    const toggleShowAll = () => {
-        setShowAll(!showAll);
-    }
+    // display edited claims
+       const displayEditedNewClaims = editClaimData.map((editClaimData, index) =>
+           <ClaimsRow key={editClaimData.iD} iD={editClaimData.iD} claimId={editClaimData.claimId} policyNumber={editClaimData.policyNumber}
+               firstName={editClaimData.firstName} lastName={editClaimData.lastName} claimType={editClaimData.claimType} claimStatus={editClaimData.claimStatus} handleClaimChange={handleClaimChange} updateFunction={() => updateStatus(index) }/> 
+       );
 
-    return (
+    return <Fragment>
         <div>
-            <h2>Your favourite songs are:</h2>
-            <button onClick={toggleVisibility}> {visible ? 'hide' : 'show'} songs</button>
-            <ul style= {{display : visible ? 'block' : 'none'}}>
-                {
-                    /* version 1
-                    {displaySongs} */
-                }
-
-                { /* version 2 */}
-                {showAll &&
-                    songs.map((song, index) => <Song key={index} song={song} recordVote={addVote}/>)
-                }
-
-                {!showAll &&
-                    songs.filter(it => it.votes >=2).map((song, index) => <Song key={index} song={song} recordVote={addVote}/>)
-                }
-
-            </ul>
-            <h3>Currently showing {showAll ? 'all' : '2 or more rated'} songs</h3>
-            <button onClick={toggleShowAll}>Show {showAll ? 'all songs' : 'only songs with 2 or more votes'}</button>
+            <table id="OpenClaimsTable" style={{ background: "#ccc" }} className="OpenClaimsTable">
+                <thead>
+                    <tr><th>Id</th><th>Claims ID</th><th>Policy Number</th><th>First Name</th><th>Surname</th><th>Type of Claim</th><th>Claim Status</th><th>Claim Amount</th></tr>
+                </thead>
+                <tbody>
+                    {displayEditedNewClaims}
+                </tbody>
+            </table>
+            {claims.length === 0 && <p>Please wait... loading data</p>}
         </div>
-    );
-};
+    </Fragment>
+}
 
-export default SongList */
+export default UpdateExistingClaim;

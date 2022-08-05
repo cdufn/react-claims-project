@@ -31,9 +31,11 @@ const SearchTable = (props) => {
         const updateStatus = (arrayPosition) => {
             const claimToUpdate = filteredClaims[arrayPosition];
 
+            console.log("what is the array here....... " + arrayPosition);
+
             const updatedClaim = {...claimToUpdate};
             
-            if (updatedClaim.claimStatus == "Closed"){
+            if (updatedClaim.claimStatus === "Closed"){
                 updatedClaim.claimStatus = "Open";
             } else{
                 updatedClaim.claimStatus = "Closed";

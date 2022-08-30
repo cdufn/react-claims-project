@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { useParams } from "react-router";
-import SearchClaims from "../SearchClaims/SearchClaims";
+import SearchClaims from "../SearchClaims";
 
 
 const SearchAClaim = () => {

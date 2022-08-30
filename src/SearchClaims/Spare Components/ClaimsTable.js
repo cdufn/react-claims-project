@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react"
-import ClaimData from '../Data/ClaimData.json'
+import ClaimData from '../../Data/ClaimData.json'
 
 const   ClaimsTable = (props) => {
 
@@ -44,7 +44,6 @@ const   ClaimsTable = (props) => {
         </thead>
         <tbody>
         {DisplayAllClaimTable}
-    
         </tbody>
     </table>
         {claim.length === 0 && <p>Please wait... loading data</p>}

@@ -37,11 +37,11 @@ const Search = (props) => {
       }
 
     return <div className="searchBox">
-            <p>To search for exisiting Allstate Claims, please input the below required information</p>
+            <p>Search Existing Claims</p>
                 <form onSubmit={doSearch}>
-                    <label htmlFor="policySearch">Search Policy Number</label>
+                    <label htmlFor="policySearch">Policy Number</label>
                     <input
-                        type="number"
+                        type="text"
                         id="policyNumber"
                         disabled={searchPolicy}
                         placeholder="Search Policy Number..."
@@ -49,7 +49,7 @@ const Search = (props) => {
                     />
                     <br/>
                     <label htmlFor="lastNameSearch">
-                        <span className="visually-hidden">Search Customer Surname</span>
+                        <span className="visually-hidden">Customer Surname</span>
                     </label>
                     <input
                         type="text"

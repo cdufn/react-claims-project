@@ -10,8 +10,8 @@ import NewClaim from './NewClaim/NewClaim';
 
 function App() {
 
-  return (
 
+  return (
     <BrowserRouter>
       <div className="App">
 
@@ -24,21 +24,12 @@ function App() {
           <Route path="/openClaims" element={<OpenClaims />} />
           <Route path="/searchClaims" element = {<SearchClaims />} />
           <Route path="/searchClaims/:policyNumber" element = {<SearchClaims />} />
-          <Route path="/searchClaims" element = {<SearchClaims />} />
           <Route path="/newClaims" element = {<NewClaim />} />
         </Routes>
 
       </div>
 
-      <div>
-
-        <Footer />
-
-
-      </div>
-
     </BrowserRouter>
-
   );
 }
 

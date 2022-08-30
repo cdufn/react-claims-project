@@ -6,7 +6,6 @@ const ClaimSearchRow = (props) => {
     }
 
     return <tr id={props.id} >
-        <td>{props.iD}</td>
         <td>{props.claimId}</td>
         <td>{props.policyNumber}</td>
         <td>{props.firstName}</td>

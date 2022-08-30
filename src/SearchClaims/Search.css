@@ -1,9 +1,56 @@
-.searchBox {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 1.2em;
+.searchBox{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: .5em;
+    border-color: black;
+    width: 30%;
+    margin: auto;
+    padding: 1em;
 }
 
-.searchBox label, input, button {
+.searchBox label {
+        margin: 10px;
+        float: left;
+}
+
+.searchBox input {
     margin: 10px;
+    float: right;
+}
+
+.searchBox button {
+    margin: 10px;
+}
+
+
+.displaySearchTable{
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid #999;
+}
+
+.displaySearchTable td, .displaySearchTable th{
+    padding: 3px;
+    border: 1px solid #999;
+}
+
+.displaySearchTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:#ddd;
+}
+
+.displaySearchTable tr:nth-child(even){
+    background-color: #f1f1f1;
+}
+
+.displaySearchTable tr:nth-child(odd){
+    background-color: #f9f9f9;
+}
+  
+.displaySearchTable tr:hover {
+    background-color: #ddd;
 }

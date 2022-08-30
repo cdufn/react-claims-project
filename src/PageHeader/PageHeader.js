@@ -8,12 +8,6 @@ const PageHeader = (props) => {
 
         <img src="allstatelogo.png" alt="Allstate Image Logo" />
 
-            <br />
-
-            <h1>Welcome to the Allstate Small Claims Site</h1>
-
-            <br />
-
         </div>
     )
 

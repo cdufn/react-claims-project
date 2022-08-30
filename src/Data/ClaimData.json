@@ -26,7 +26,7 @@
           "firstName": "Paul",
           "lastName": "Jones",
           "claimType": "Pet",
-          "claimStatus": "Closed",
+          "claimStatus": "Rejected",
           "claimAmount": ""
     },
     {

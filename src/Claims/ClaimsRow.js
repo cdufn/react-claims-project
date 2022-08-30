@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react"
+import './OpenClaims.css';
 
 const ClaimsRow = (props) => {
 
@@ -10,14 +11,13 @@ const ClaimsRow = (props) => {
     }
    
      return <tr id={props.iD} >
-        <td>{props.iD}</td>
         <td>{props.claimId}</td>
         <td>{props.policyNumber}</td>
         <td>{props.firstName}</td>
         <td>{props.lastName}</td>
         <td>{props.claimType}</td>
         <td>{props.claimStatus}</td>
-        <td><input type="number" placeholder="Enter claim amount..." name="claimAmount" onChange={props.handleClaimChange}></input></td> 
+        <td><input type="number" placeholder="Enter claim amount..." name="claimAmount" ></input></td> 
         <td><select id="newStatus" name="newStatus" defaultValue="Select" onChange={props.handleClaimChange}>
             <option value="Select">Please Select</option>
             <option value="Accepted">Accepted</option>

@@ -21,22 +21,22 @@ const OpenClaims = () => {
     // from the below store the input values into an array
     const emptyClaim = {
         claimId: "", policyNumber: "", firstName: "", lastName: "",
-        claimDate: Date, claimType: "", claimStatus: "New", costOfClaim: "", claimReason: "", description: "",
+        claimDate: Date, claimType: "", claimStatus: "", costOfClaim: "", claimReason: "", description: "",
         city: "", street: "", zip: "", makeOfVehicle: "", modelOfVehicle: "", yearOfVehicle: "", petType: "",
         petBreed: "", dateOfEvent: Date, eventDetails: ""
     }
 
     const [claim, setClaim] = useState(emptyClaim);
 
+    // displays open claims
     const getCustomerClaimsByStatus = () => {
 
-        const paymentsPromise = getClaimsByStatus("New");
-        paymentsPromise.then(
+        const claimsPromise = getClaimsByStatus("New");
+        claimsPromise.then(
             (response) => {
                 if (response.status === 200) {
                     setClaimsByStatus(response.data);
                     console.log(response.data)
-                    debugger;
                 }
                 else {
                     console.log("Something went wrong", response.status);
@@ -70,16 +70,18 @@ const OpenClaims = () => {
         claimsByStatus.filter(claims => claims.claimStatus === "New")
             .map((claims, index) =>
                 (claims.claimStatus === "New") &&
-                <ClaimsRow key={claims.iD} iD={claims.iD} claimId={claims.claimId} policyNumber={claims.policyNumber}
-                    firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} handleClaimChange={handleClaimChange} updateFunction={() => updateStatus(index)} />
+                <ClaimsRow key={claims.id} iD={claims.id} claimId={claims.claimId} policyNumber={claims.policyNumber}
+                    firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} costOfClaim={claims.costOfClaim} handleClaimChange={handleClaimChange} updateFunction={() => updateStatus(index)} />
             );
 
+    console.log("what is claims .........." + JSON.stringify(claims));
+            
     const updateStatus = (arrayPosition) => {
         const claimToUpdate = filteredClaims[arrayPosition];
 
         const updatedClaim = { ...claimToUpdate };
 
-        if (newStatus != "Please Select") {
+        if (newStatus !== "Please Select") {
             updatedClaim.claimStatus = newStatus;
         }
 
@@ -93,24 +95,25 @@ const OpenClaims = () => {
 
     // display edited claims
     const displayEditedNewClaims = editClaimData.map((editClaimData, index) =>
-        <ClaimsRow key={editClaimData.iD} iD={editClaimData.iD} claimId={editClaimData.claimId} policyNumber={editClaimData.policyNumber}
-            firstName={editClaimData.firstName} lastName={editClaimData.lastName} claimType={editClaimData.claimType} claimStatus={editClaimData.claimStatus} handleClaimChange={handleClaimChange} updateFunction={() => updateStatus(index)} />
+        <ClaimsRow key={editClaimData.id} iD={editClaimData.id} claimId={editClaimData.claimId} policyNumber={editClaimData.policyNumber}
+            firstName={editClaimData.firstName} lastName={editClaimData.lastName} claimType={editClaimData.claimType} claimStatus={editClaimData.claimStatus} costOfClaim={editClaimData.costOfClaim} updateFunction={() =>     (index)} />
     );
 
     return <Fragment>
         <div>
+            <h1> New Claims</h1>
             <table id="OpenClaimsTable" className="OpenClaimsTable">
                 <thead>
                     <tr>
+                        <th>Customer ID</th>
                         <th>Claims ID</th>
                         <th>Policy Number</th>
                         <th>First Name</th>
                         <th>Surname</th>
                         <th>Type of Claim</th>
                         <th>Claim Status</th>
-                        <th>Claim Amount</th>
-                        <th>Select Status</th>
-                        <th></th>
+                        <th>Cost of Claim</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 

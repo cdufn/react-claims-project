@@ -1,4 +1,4 @@
-.newClaim{
+.searchBox{
     border-style: solid;
     border-width: 1px;
     border-radius: .5em;
@@ -8,16 +8,19 @@
     padding: 1em;
 }
 
-.newClaimForm label {
+label{
     float: left;
     width: 150px;
     text-align: right;
 }
 
-.newClaimForm input {
+input {
     margin-left: 1em;
     margin-bottom: .5em;
 }
 
+button{
+    margin-left: 7em;
+}
 
 

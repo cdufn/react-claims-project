@@ -8,20 +8,20 @@
     padding: 1em;
 }
 
-.searchBox label {
-        margin: 10px;
-        float: left;
+label{
+    float: left;
+    width: 150px;
+    text-align: right;
 }
 
-.searchBox input {
-    margin: 10px;
-    float: right;
+input {
+    margin-left: 1em;
+    margin-bottom: .5em;
 }
 
-.searchBox button {
-    margin: 10px;
+button{
+    margin-left: 7em;
 }
-
 
 .displaySearchTable{
     margin-top: 50px;

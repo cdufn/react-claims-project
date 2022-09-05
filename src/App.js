@@ -7,7 +7,7 @@ import SearchClaims from './SearchClaims/SearchClaims';
 import OpenClaims from './Claims/OpenClaims';
 import HomePage from './HomePage/HomePage';
 import NewClaim from './NewClaim/NewClaim';
-
+import ViewClaimToEdit from './ViewClaim/ViewClaimToEdit';
 function App() {
 
 
@@ -20,10 +20,11 @@ function App() {
         <Menu />
 
         <Routes>
-          <Route path="/" element = {<HomePage />} />
+          <Route path="/HomePage" element = {<HomePage />} />
           <Route path="/openClaims" element={<OpenClaims />} />
           <Route path="/searchClaims" element = {<SearchClaims />} />
           <Route path="/searchClaims/:policyNumber" element = {<SearchClaims />} />
+          <Route path="/ViewClaimToEdit/:id" element = {<ViewClaimToEdit />} />
           <Route path="/newClaims" element = {<NewClaim />} />
         </Routes>
 

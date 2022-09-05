@@ -40,19 +40,22 @@ const SearchTable = (props) => {
     useEffect (() => {
         getClaimsDataFromServer();
     }, [] );
-    
 
-console.log(" return data from the server...." + JSON.stringify(customers));
+    console.log(" customer record after search....." + JSON.stringify(customers));
+    
+    console.log(" what is the prop search term....."  + props.searchTerm);
+
+  
 
     // display the results and filter by either policy number or last name
-    const displayClaimsTable = customers.filter(claims => props.searchTerm === claims.lastName.toLowerCase() || props.searchTerm === claims.policyNumber)
+    const displayClaimsTable = customers.filter(claims => props.searchTerm === claims.lastName || props.searchTerm === claims.policyNumber || props.searchTerm === claims.claimId)
         .map((claims, index) =>
-            (props.searchTerm === claims.lastName.toLowerCase() || claims.policyNumber === props.searchTerm) &&
-            <ClaimSearchRow key={claims.id} id={claims.Id} claimId={claims.claimId} policyNumber={claims.policyNumber}
-                firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} updateFunction={() => updateStatus(index) }/> 
+            (props.searchTerm === claims.lastName || claims.policyNumber === props.searchTerm || props.searchTerm === claims.claimId) &&
+            <ClaimSearchRow key={claims.id} iD={claims.id} claimId={claims.claimId} policyNumber={claims.policyNumber}
+            firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} costOfClaim={claims.costOfClaim} updateFunction={() => updateStatus(index)} />
         );
 
-
+    console.log(" whats in claims......" + claims);
     // filter claims 
     const filteredClaims = customers.filter(claims => props.searchTerm === claims.lastName.toLowerCase() || props.searchTerm === claims.policyNumber);
     
@@ -126,13 +129,14 @@ console.log(" return data from the server...." + JSON.stringify(customers));
         <table id="displaySearchTable" className="displaySearchTable">
             <thead>
                 <tr>
-                    <th>Claims ID</th>
-                    <th>Policy Number</th>
-                    <th>First Name</th>
-                    <th>Surname</th>
-                    <th>Type of Claim</th>
-                    <th>Claim Status</th>
-                    <th>Update Status</th>
+                <th>Customer ID</th>
+                        <th>Claims ID</th>
+                        <th>Policy Number</th>
+                        <th>First Name</th>
+                        <th>Surname</th>
+                        <th>Type of Claim</th>
+                        <th>Claim Status</th>
+                        <th>Action</th>
                 </tr>
             </thead>
             <tbody>

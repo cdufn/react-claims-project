@@ -1,5 +1,4 @@
 import './OpenClaims.css';
-import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router';
 
 const ClaimsRow = (props) => {
@@ -8,11 +7,11 @@ const ClaimsRow = (props) => {
 
   const viewClaim = () => {
 
-    navigate(`/ViewClaimToEdit/${props.iD}`);
+    console.log("  are we navigating from here.......");
+
+    navigate(`/editNewClaim/${props.iD}`);
 
   }
-
-  console.log(" cost of claim............" + JSON.stringify(props));
 
   return <tr id={props.iD} >
     <td>{props.iD}</td>

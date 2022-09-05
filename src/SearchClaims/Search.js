@@ -30,7 +30,6 @@ const Search = (props) => {
             navigate("/searchClaims/" + searchTerm.trim());
         }
 
-        console.log(" what is the search term...."  + searchTerm);
     }
 
 

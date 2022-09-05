@@ -1,3 +1,15 @@
+
+.newClaim{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: .5em;
+    border-color: black;
+    width: 30%;
+    margin: auto;
+    padding: 1em;
+}
+
+
 .searchBox{
     border-style: solid;
     border-width: 1px;

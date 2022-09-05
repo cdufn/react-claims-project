@@ -1,0 +1,52 @@
+.ViewClaimTable{
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 1px solid #999;
+}
+
+.ViewClaimTable td, .ViewClaimTable th{
+    padding: 3px;
+    border: 1px solid #999;
+}
+
+.ViewClaimTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:#ddd;
+}
+
+.ViewClaimTable tr:nth-child(even){
+    background-color: #f1f1f1;
+}
+
+.ViewClaimTable tr:nth-child(odd){
+    background-color: #f9f9f9;
+}
+  
+.ViewClaimTable tr:hover {
+    background-color: #ddd;
+}
+
+.editClaim{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: .5em;
+    border-color: black;
+    width: 30%;
+    margin: auto;
+    padding: 1em;
+}
+
+.editClaimForm label {
+    float: left;
+    width: 150px;
+    text-align: right;
+}
+
+.editClaimForm input {
+    margin-left: 1em;
+    margin-bottom: .5em;
+}

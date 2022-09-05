@@ -1,10 +1,11 @@
 import { Fragment, useState, useEffect, useReducer } from "react";
-import './VewClaimToEdit.css';
-import { getClaim, updatePayment } from '../Data/Data';
+import './EditNewClaim.css';
+import { getClaim} from '../Data/Data';
 import { useNavigate, useParams } from "react-router";
 
-const ViewClaimToEdit = () => {
-
+const EditNewClaim = () => {
+    // get all claims
+    //const [edit, setedit] = useState(false);
     const [message, setMessage] = useState("");
     const [changeData, setChangeData] = useState({});
     const [isShown, setIsShown] = useState(false);
@@ -33,6 +34,7 @@ const ViewClaimToEdit = () => {
         const newData = { ...changeData };
         newData[field] = value;
         setChangeData(newData);
+     
     }
 
     const navigate = useNavigate();
@@ -44,52 +46,47 @@ const ViewClaimToEdit = () => {
 
         let data = {};
 
-        // dont let claim be edited if status is Rejected or Accepted and Paid
-        if (claim.claimStatus === "Rejected" || claim.claimStatus === "Accepted and Paid") {
-            setIsShown(true);
+        if (changeData.claimId !== claim.claimId) {
+            data = { ...data, claimId: changeData.claimId };
         }
-        else {
 
-            if (changeData.claimId !== claim.claimId) {
-                data = { ...data, claimId: changeData.claimId };
-            }
+        if (changeData.policyNumber !== claim.policyNumber) {
+            data = { ...data, policyNumber: changeData.policyNumber };
+        }
 
-            if (changeData.policyNumber !== claim.policyNumber) {
-                data = { ...data, policyNumber: changeData.policyNumber };
-            }
+        if (changeData.firstName !== claim.firstName) {
+            data = { ...data, firstName: changeData.firstName };
+        }
 
-            if (changeData.firstName !== claim.firstName) {
-                data = { ...data, firstName: changeData.firstName };
-            }
+        if (changeData.lastName !== claim.lastName) {
+            data = { ...data, lastName: changeData.lastName };
+        }
 
-            if (changeData.lastName !== claim.lastName) {
-                data = { ...data, lastName: changeData.lastName };
-            }
+        if (changeData.costOfClaim !== claim.costOfClaim) {
+            data = { ...data, costOfClaim: changeData.costOfClaim };
+        }
 
-            if (changeData.costOfClaim !== claim.costOfClaim) {
-                data = { ...data, costOfClaim: changeData.costOfClaim };
-            }
+        console.log(" what is the claim status ....." + changeData.claimStatus);
 
-            if (changeData.claimStatus !== claim.claimStatus) {
+        if (changeData.claimStatus !== claim.claimStatus)
+            if (changeData.claimStatus === "Rejected" || changeData.claimStatus === "Transfer" || changeData.claimStatus === "Accepted" || changeData.claimStatus === "Assessed" ) {
                 data = { ...data, claimStatus: changeData.claimStatus };
             }
+            else{
+                setIsShown(true);
+            }
 
-            response = updatePayment(params.id, data);
-
-            response.then(result => {
-                if (result.status === 200) {
-                    navigate("/searchClaims");
-                }
-                else {
-                    setMessage("something went wrong ", result.statusText)
-                }
-
-                console.log(" what is the result ....." + result);
+        response.then(result => {
+            if (result.status === 200) {
+                navigate("/ViewNewClaimToEdit");
+            }
+            else {
+                setMessage("something went wrong ", result.statusText)
+            }
+        })
+            .catch(error => {
+                setMessage("something went wrong ", error)
             })
-                .catch(error => {
-                    setMessage("something went wrong ", error)
-                })
-        }
     }
 
     // get ID of the claim to be edited
@@ -112,7 +109,7 @@ const ViewClaimToEdit = () => {
 
     return <Fragment>
         <div className="editClaim">
-            <h1>Edit Claim</h1>
+            <h1>New Edit Claim</h1>
             <form class="editClaimForm" onSubmit={submitData} >
 
                 <label htmlFor="claimId">Claim ID</label>
@@ -139,13 +136,13 @@ const ViewClaimToEdit = () => {
                 <input type="text" name="claimStatus" id="claimStatus" onChange={handleChange}
                     defaultValue={claim.claimStatus}></input>
                 <br />
-                <button type="submit">Save</button>
                 {isShown && (
-                    <p>Claim can not be edited due to status being either Rejected for Accpeted and Paid</p>
+                   <p>Invalid Claim Status.  Valid Option: Accessed, Rejected, Transfer, Accepted, Accepted and Paid</p>   
                 )}
+                <button type="submit">Save</button>
             </form>
         </div>
     </Fragment>
 }
 
-export default ViewClaimToEdit;
+export default EditNewClaim;

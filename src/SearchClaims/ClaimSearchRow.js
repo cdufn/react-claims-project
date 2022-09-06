@@ -6,7 +6,7 @@ const ClaimSearchRow = (props) => {
 
     const updateClaim = () => {
 
-        navigate(`/ViewClaimToEdit/${props.iD}`);
+        navigate(`/viewClaimToEdit/${props.iD}`);
 
     }
 

@@ -25,7 +25,7 @@ function App() {
           <Route path="/searchClaims" element = {<SearchClaims />} />
           <Route path="/searchClaims/:policyNumber" element = {<SearchClaims />} />
           <Route path="/editNewClaim/:id" element = {<EditNewClaim />} />
-          <Route path="/ViewClaimToEdit/:id" element = {<ViewClaimToEdit />} />
+          <Route path="/viewClaimToEdit/:id" element = {<ViewClaimToEdit />} />
           <Route path="/newClaims" element = {<NewClaim />} />
         </Routes>
 

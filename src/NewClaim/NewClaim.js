@@ -6,6 +6,9 @@ const NewClaim = () => {
 
     const [message, setMessage] = useState("")
     const [saving, setSaving] = useState(false);
+    const [propCheckBox, setPropCheckBox] = useState(false);
+    const [motorCheckBox, setMotorCheckBox] = useState(false);
+    const [petCheckBox, setPetCheckBox] = useState(false);
 
     // from the below store the input values into an array
     const emptyClaim = {
@@ -23,7 +26,6 @@ const NewClaim = () => {
     const [newClaim, dispatch] =
         useReducer(NewClaimReducer, emptyClaim);
 
-    console.log("new Claim  " + JSON.stringify(newClaim));
 
     // on input update state
     const handleNewChange = (event) => {
@@ -79,30 +81,75 @@ const NewClaim = () => {
         setShowInfo(prev => !prev)
     }
 
+    const handlePropCheckBoxChange = (e) => {
+
+        const value = e.target.checked;
+
+        if(value){
+            setPropCheckBox(false);
+            setMotorCheckBox(true);
+            setPetCheckBox(true);
+        } else{
+            setPropCheckBox(false);
+            setMotorCheckBox(false);
+            setPetCheckBox(false);
+        }
+    }
+
+    const handleMotorCheckBoxChange = (e) => {
+
+        const value = e.target.checked;
+
+        if(value){
+            setPropCheckBox(true);
+            setMotorCheckBox(false);
+            setPetCheckBox(true);
+        } else{
+            setPropCheckBox(false);
+            setMotorCheckBox(false);
+            setPetCheckBox(false);
+        }
+    }
+
+    const handlePetCheckBoxChange = (e) => {
+
+        const value = e.target.checked;
+
+        if(value){
+            setPropCheckBox(true);
+            setMotorCheckBox(true);
+            setPetCheckBox(false);
+        } else{
+            setPropCheckBox(false);
+            setMotorCheckBox(false);
+            setPetCheckBox(false);
+        }
+    }
+
     return (
         <div className="newClaim">
             <form class="newClaimForm" onSubmit={submitData} >
 
                 <label htmlFor="claimId">Claim ID</label>
-                <input type="text" id="claimId" placeholder="Claim Id" onChange={handleNewChange} value={claimId} required/>
+                <input type="text" id="claimId" placeholder="Claim Id" onChange={handleNewChange} value={claimId} required />
                 <br />
                 <label htmlFor="policyNumber">Policy Number</label>
-                <input type="text" id="policyNumber" placeholder="Policy Number" onChange={handleNewChange} value={policyNumber} required/>
+                <input type="text" id="policyNumber" placeholder="Policy Number" onChange={handleNewChange} value={policyNumber} required />
                 <br />
                 <label htmlFor="firstName">First Name</label>
-                <input type="text" id="firstName" placeholder="First Name" onChange={handleNewChange} value={firstName} required/>
+                <input type="text" id="firstName" placeholder="First Name" onChange={handleNewChange} value={firstName} required />
                 <br />
                 <label htmlFor="customerLastName">Last name</label>
-                <input type="text" id="lastName" placeholder="Last Name" onChange={handleNewChange} value={lastName} required/>
+                <input type="text" id="lastName" placeholder="Last Name" onChange={handleNewChange} value={lastName} required />
                 <br />
                 <label htmlFor="claimdate">Claim Date</label>
-                <input type="date" id="claimDate" onChange={handleNewChange} value={claimDate} required/>
+                <input type="date" id="claimDate" onChange={handleNewChange} value={claimDate} required />
                 <br />
                 <label htmlFor="costOfClaim">Cost of Claim</label>
                 <input type="text" id="costOfClaim" onChange={handleNewChange} value={costOfClaim} />
                 <br />
                 <label htmlFor="claimReason">Reason for Claim</label>
-                <input type="text" id="claimReason" onChange={handleNewChange} value={claimReason} required/>
+                <input type="text" id="claimReason" onChange={handleNewChange} value={claimReason} required />
                 <br />
                 <label htmlFor="description">Description of Incident</label>
                 <textarea type="text" id="description" rows="4" cols="50" onChange={handleNewChange} value={description} required></textarea>
@@ -111,13 +158,13 @@ const NewClaim = () => {
 
                 <h2>Type of Insurance Claim</h2>
                 <div className="typeOfInsurance">
-                    <input type="checkbox" onClick={toggleProp} name="property" id="claimType" onChange={handleNewChange} value="Property" />
+                    <input type="checkbox" disabled={propCheckBox} onClick={toggleProp} name="property" id="claimTypeProp" onChange={handlePropCheckBoxChange} value="Property" />
                     <label class="checkbox-label" for="property">Property</label>
                     <br />
-                    <input type="checkbox" onClick={toggleAuto} name="motor" id="claimType" onChange={handleNewChange} value="Motor" />
+                    <input type="checkbox" disabled={motorCheckBox} onClick={toggleAuto} name="motor" id="claimType" onChange={handleMotorCheckBoxChange} value="Motor" />
                     <label class="checkbox-label" for="motor">Motor</label>
                     <br />
-                    <input type="checkbox" onClick={togglePet} name="pet" id="claimType" onChange={handleNewChange} value="Pet" />
+                    <input type="checkbox" disabled={petCheckBox} onClick={togglePet} name="pet" id="claimType" onChange={handlePetCheckBoxChange} value="Pet" />
                     <label class="checkbox-label" for="pet">Pet</label>
                 </div>
                 {showProp && <div id="householdExtended">
@@ -159,15 +206,15 @@ const NewClaim = () => {
 
                 <br />
 
-               {/*  {showInfo && <div id="additionalInfo" className="additionalInfo"> */}
+                {/*  {showInfo && <div id="additionalInfo" className="additionalInfo"> */}
                 <div>
                     <label htmlFor="dateOfEvent">Date of incident</label>
                     <input type="date" name="dateOfEvent" id="dateOfEvent" onChange={handleNewChange} value={dateOfEvent} />
                     <br />
                     <label htmlFor="eventDetails">Further Details</label>
                     <textarea type="text" id="eventDetails" name="additionalInfoText" rows="4" cols="50" onChange={handleNewChange} value={eventDetails}></textarea>
-               {/*  </div>} */}
-               </div>
+                    {/*  </div>} */}
+                </div>
                 <br />
                 <button disabled={saving} type="submit">Save</button>
             </form>

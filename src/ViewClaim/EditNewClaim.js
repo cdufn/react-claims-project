@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect, useReducer } from "react";
 import './EditNewClaim.css';
-import { getClaim} from '../Data/Data';
+import { getClaim, updatePayment} from '../Data/Data';
 import { useNavigate, useParams } from "react-router";
 
 const EditNewClaim = () => {
@@ -76,9 +76,12 @@ const EditNewClaim = () => {
                 setIsShown(true);
             }
 
+
+            response = updatePayment(params.id, data);
+
         response.then(result => {
             if (result.status === 200) {
-                navigate("/ViewNewClaimToEdit");
+                navigate("/openClaims");
             }
             else {
                 setMessage("something went wrong ", result.statusText)
@@ -112,9 +115,6 @@ const EditNewClaim = () => {
             <h1>New Edit Claim</h1>
             <form class="editClaimForm" onSubmit={submitData} >
 
-                <label htmlFor="claimId">Claim ID</label>
-                <input type="text" name="claimId" id="claimId" onChange={handleChange}
-                    defaultValue={claim.claimId}></input>
                 <br />
                 <label htmlFor="policyNumber">Policy Number</label>
                 <input type="text" name="policyNumber" id="policyNumber" onChange={handleChange}
@@ -136,6 +136,7 @@ const EditNewClaim = () => {
                 <input type="text" name="claimStatus" id="claimStatus" onChange={handleChange}
                     defaultValue={claim.claimStatus}></input>
                 <br />
+                <label title="Valid Claim Status: Assessed, Rejected, Transfer, Accepted">Help</label>
                 {isShown && (
                    <p>Invalid Claim Status.  Valid Option: Accessed, Rejected, Transfer, Accepted, Accepted and Paid</p>   
                 )}

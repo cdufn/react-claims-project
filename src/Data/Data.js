@@ -59,7 +59,7 @@ export const addNewClaim = (claim) => {
 
 export const updatePayment = (id, data) => {
     return axios({
-        url: "http://localhost:8080/api/claim/update/" + id,
+        url: "http://localhost:8080/api/claim/" + id,
         method: "PUT",
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         data: data

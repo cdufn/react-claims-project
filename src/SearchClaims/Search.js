@@ -4,13 +4,13 @@ import './Search.css';
 
 const Search = (props) => {
 
+    const [touched, setTouched] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
-    const [searchSurname, setSearchSurname] = useState(false);
-    const [searchPolicy, setSearchPolicy] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [customerIDValid, setCustomerIDValid] = useState(false);
     const [nameValid, setNameValid] = useState(false);
     const [policyValid, setPolicyValid] = useState(false);
+    const [valid, setValid] = useState(false);
 
     const navigate = useNavigate();
 
@@ -32,13 +32,14 @@ const Search = (props) => {
 
     }
 
-
-
+    // Inputs are trimed to prevent blank spaces
     const handlePolicyChange = (event) => {
         const value = event.target.value;
         setSearchTerm(value);
         setCustomerIDValid(true);
         setNameValid(true);
+        setTouched(true);
+        setValid (value.trim().length > 0);
     }
 
     const handleSurnameChange = (event) => {
@@ -46,6 +47,8 @@ const Search = (props) => {
         setSearchTerm(value);
         setCustomerIDValid(true);
         setPolicyValid(true);
+        setTouched(true);
+        setValid (value.trim().length > 0);
     }
 
     const handleClaimIdChange = (event) => {
@@ -53,6 +56,8 @@ const Search = (props) => {
         setSearchTerm(value);
         setPolicyValid(true);
         setNameValid(true);
+        setTouched(true);
+        setValid (value.trim().length > 0);
     }
 
     const handleSearchReset = (event) => {
@@ -75,7 +80,8 @@ const Search = (props) => {
             <label htmlFor="claimId">Claim ID</label>
             <input onChange={handleClaimIdChange} disabled={customerIDValid} id="claimId" type="text" />
             <br />
-            <button type="submit">Search</button>
+            <button type="submit" disabled={!valid}>Search</button>
+            {touched && !valid && <p style={{color: "#f00", "fontSize": "12px", "marginTop": 0}}>Please enter a valid Claim ID</p>}
             <button onClick={handleSearchReset}>Undo</button>
         </form>
     </div>

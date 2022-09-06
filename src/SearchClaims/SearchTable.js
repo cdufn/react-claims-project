@@ -33,13 +33,16 @@ const SearchTable = (props) => {
         getClaimsDataFromServer();
     }, []);
 
+    console.log(" what is the search term......."  + props.searchTerm);
+
     // display the results and filter by either policy number or last name
-    const displayClaimsTable = customers.filter(claims => props.searchTerm === claims.lastName || props.searchTerm === claims.policyNumber || props.searchTerm === claims.claimId)
-        .map((claims, index) =>
+     const displayClaimsTable = customers.filter(claims => props.searchTerm === claims.lastName || props.searchTerm === claims.policyNumber || props.searchTerm === claims.claimId)
+         .map((claims, index) =>
             (props.searchTerm === claims.lastName || claims.policyNumber === props.searchTerm || props.searchTerm === claims.claimId) &&
             <ClaimSearchRow key={claims.id} iD={claims.id} claimId={claims.claimId} policyNumber={claims.policyNumber}
-                firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} costOfClaim={claims.costOfClaim} updateFunction={() => (index)} />
-        );
+            firstName={claims.firstName} lastName={claims.lastName} claimType={claims.claimType} claimStatus={claims.claimStatus} costOfClaim={claims.costOfClaim} updateFunction={() => (index)} />
+         );
+
 
     return <Fragment>
         <table id="displaySearchTable" className="displaySearchTable">

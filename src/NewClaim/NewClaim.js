@@ -36,6 +36,8 @@ const NewClaim = () => {
     // this isnt being populated corectly
     const { claimId, policyNumber, firstName, lastName, claimDate, claimType, claimStatus, costOfClaim, claimReason, description, city, street, zip, makeOfVehicle, modelOfVehicle, yearOfVehicle, petType, petBreed, dateOfEvent, eventDetails } = newClaim;
 
+    console.log("what is in the new claim...." + JSON.stringify(newClaim));
+    
     const submitData = (event) => {
         event.preventDefault();
         setMessage("saving");
@@ -85,15 +87,19 @@ const NewClaim = () => {
 
         const value = e.target.checked;
 
+        //console.log("what is the property checkbox...." + value);
+
         if(value){
             setPropCheckBox(false);
             setMotorCheckBox(true);
             setPetCheckBox(true);
+            newClaim.claimType = "Property";
         } else{
             setPropCheckBox(false);
             setMotorCheckBox(false);
             setPetCheckBox(false);
         }
+        console.log("what is the property checkbox...." + value);
     }
 
     const handleMotorCheckBoxChange = (e) => {
@@ -104,6 +110,7 @@ const NewClaim = () => {
             setPropCheckBox(true);
             setMotorCheckBox(false);
             setPetCheckBox(true);
+            newClaim.claimType = "Motor";
         } else{
             setPropCheckBox(false);
             setMotorCheckBox(false);
@@ -119,6 +126,7 @@ const NewClaim = () => {
             setPropCheckBox(true);
             setMotorCheckBox(true);
             setPetCheckBox(false);
+            newClaim.claimType = "Pet";
         } else{
             setPropCheckBox(false);
             setMotorCheckBox(false);
@@ -158,13 +166,13 @@ const NewClaim = () => {
 
                 <h2>Type of Insurance Claim</h2>
                 <div className="typeOfInsurance">
-                    <input type="checkbox" disabled={propCheckBox} onClick={toggleProp} name="property" id="claimTypeProp" onChange={handlePropCheckBoxChange} value="Property" />
+                    <input type="checkbox" disabled={propCheckBox} onClick={toggleProp} name="property" id="claimTypeProp" onChange={handlePropCheckBoxChange} value={claimType} />
                     <label class="checkbox-label" for="property">Property</label>
                     <br />
-                    <input type="checkbox" disabled={motorCheckBox} onClick={toggleAuto} name="motor" id="claimType" onChange={handleMotorCheckBoxChange} value="Motor" />
+                    <input type="checkbox" disabled={motorCheckBox} onClick={toggleAuto} name="motor" id="claimType" onChange={handleMotorCheckBoxChange} value={claimType} />
                     <label class="checkbox-label" for="motor">Motor</label>
                     <br />
-                    <input type="checkbox" disabled={petCheckBox} onClick={togglePet} name="pet" id="claimType" onChange={handlePetCheckBoxChange} value="Pet" />
+                    <input type="checkbox" disabled={petCheckBox} onClick={togglePet} name="pet" id="claimType" onChange={handlePetCheckBoxChange} value={claimType} />
                     <label class="checkbox-label" for="pet">Pet</label>
                 </div>
                 {showProp && <div id="householdExtended">

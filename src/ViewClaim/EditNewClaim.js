@@ -69,7 +69,7 @@ const EditNewClaim = () => {
         console.log(" what is the claim status ....." + changeData.claimStatus);
 
         if (changeData.claimStatus !== claim.claimStatus)
-            if (changeData.claimStatus === "Rejected" || changeData.claimStatus === "Transfer" || changeData.claimStatus === "Accepted" || changeData.claimStatus === "Assessed" ) {
+            if (changeData.claimStatus === "Rejected" || changeData.claimStatus === "Transfer" || changeData.claimStatus === "Accepted" || changeData.claimStatus === "Assessed" || changeData.claimStatus === "Accepted Paid") {
                 data = { ...data, claimStatus: changeData.claimStatus };
             }
             else{
@@ -136,9 +136,9 @@ const EditNewClaim = () => {
                 <input type="text" name="claimStatus" id="claimStatus" onChange={handleChange}
                     defaultValue={claim.claimStatus}></input>
                 <br />
-                <label title="Valid Claim Status: Assessed, Rejected, Transfer, Accepted">Help</label>
+                <label title="Valid Claim Status: Assessed, Rejected, Transfer, Accepted, Accepted Paid">Help</label>
                 {isShown && (
-                   <p>Invalid Claim Status.  Valid Option: Accessed, Rejected, Transfer, Accepted, Accepted and Paid</p>   
+                   <p>Invalid Claim Status.  Valid Option: Accessed, Rejected, Transfer, Accepted, Accepted Paid</p>   
                 )}
                 <button type="submit">Save</button>
             </form>

@@ -12,6 +12,8 @@ const SearchClaims = () => {
       setSearchTerm(params.policyNumber);
   } 
 
+  console.log("does the code get here for the search feature......");
+
   return (
     <div>
       <Search setSearchTerm={setSearchTerm}/>

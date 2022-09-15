@@ -45,7 +45,7 @@ const ViewClaimToEdit = () => {
         let data = {};
 
         // dont let claim be edited if status is Rejected or Accepted and Paid
-        if (claim.claimStatus === "Rejected" || claim.claimStatus === "Accepted and Paid") {
+        if (claim.claimStatus === "Rejected" || claim.claimStatus === "Accepted Paid") {
             setIsShown(true);
         }
         else {
@@ -141,7 +141,7 @@ const ViewClaimToEdit = () => {
                 <br />
                 <button type="submit">Save</button>
                 {isShown && (
-                    <p>Claim can not be edited due to status being either Rejected for Accpeted and Paid</p>
+                    <p>Claim can not be edited due to status being either Rejected or Accpeted and Paid</p>
                 )}
             </form>
         </div>
